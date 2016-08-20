@@ -1,0 +1,24 @@
+{
+  "name": "ionic-secure-server",
+  "version": "1.0.0",
+  "description": "test server for ionic-secure",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "author": "dandingol03",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "colors": "^1.1.2",
+    "express": "^4.14.0",
+    "express-static": "^1.0.3",
+    "http-proxy": "^1.14.0",
+    "url": "^0.11.0"
+  }
+}
