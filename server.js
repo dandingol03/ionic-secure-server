@@ -32,13 +32,13 @@ app.use(bodyParser.json());
  * page4
  */
 
-app.post('/insurance/projecct_provide',function(req,res) {
+app.get('/insurance/projecct_provide',function(req,res) {
 
     var projects=[
         {name:'车辆损失险',fee:1205},
-        {name:'第三者责任险',fee:[1104,870,999]},
+        {name:'第三者责任险',fee:[1104,870,999],selectable:true},
         {name:'全车盗抢险',fee:1102},
-        {name:'车上人员责任险',fee:[700,600,1000]},
+        {name:'车上人员责任险',fee:[700,600,1000],selectable:true},
         {name:'驾驶员',fee:200},
         {name:'乘客每人',fee:800},
         {name:'玻璃单独破碎险',fee:300},
@@ -48,16 +48,23 @@ app.post('/insurance/projecct_provide',function(req,res) {
         {name:'不计免赔险',fee:360},
         {name:'交强险',fee:400}
     ];
-    res.send(projects);
+    res.send({projects:projects});
+});
+
+
+app.post('/insurance/project_upload',function(req,res) {
+    var proj_list=req.query.proj_list;
+    if(Object.prototype.toString.call(proj_list)!='[object Array]')
+        proj_list = JSON.parse(proj_list);
+    //TODO:store the proj_list to redis
+    res.send({re: 1});
 });
 
 /**
  * page5
  */
-app.post('/insurance/project_select', function (req, res) {
-    var projects=req.body.projects;
-    if(projects!==undefined&&projects!==null)
-    {
+app.get('/insurance/project_select', function (req, res) {
+
         //TODO:store the list and push it when stuff compulate the result
 
         res.send({prices:
@@ -67,9 +74,7 @@ app.post('/insurance/project_select', function (req, res) {
                 {name:'compnay c',fee:999,detail:{projects:['玻璃单独破碎险','乘客每人']}},
                 {name:'compnay d',fee:1405,detail:{projects:['无法找到第三方','车辆损失险','自燃损失险','全车盗抢险']}}
             ]});
-    }else{
-        res.send({re: -1});
-    }
+
 });
 
 app.post('/insurance/project_apply',function(req,res) {
