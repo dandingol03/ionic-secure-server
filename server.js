@@ -58,6 +58,20 @@ app.get('/insurance/projecct_provide',function(req,res) {
 });
 
 
+app.get('/insurance/my_pageinfo',function(req,res) {
+
+    var infos=[
+        {title:"个人信息",href:'/#/personInformation'},
+        {title:"实名认证",href:''},
+        {title:"我的订单",href:''},
+        {title:"推荐二维码",href:''},
+        {title:"我的股权",href:''},
+        {title:"积分提现",href:''}
+    ];
+    res.send({infos:infos});
+});
+
+
 app.post('/insurance/project_upload',function(req,res) {
     var proj_list=req.query.proj_list;
     if(Object.prototype.toString.call(proj_list)!='[object Array]')
