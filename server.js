@@ -3,6 +3,10 @@
  */
 var express = require('express');
 var app = require('express')();
+var server=require('http').createServer();
+var WebSocketServer=require('ws').Server;
+var wss = new WebSocketServer({server: server});
+
 var static = require("express-static");
 var bodyParser=require('body-parser');
 var httpProxy = require("http-proxy");
@@ -31,6 +35,8 @@ app.use(bodyParser.json());
 /**
  * page4
  */
+
+
 
 app.get('/insurance/projecct_provide',function(req,res) {
 
@@ -84,6 +90,14 @@ app.post('/insurance/project_apply',function(req,res) {
     res.send({re:1});
 });
 
+wss.on('connection',function connection(ws) {
+    ws.on('message', function incoming(message) {
+        console.log('received: %s', message);
+    });
 
-app.listen(9030);
+    ws.send('something');
+});
+
+server.on('request', app);
+server.listen(9030);
 
