@@ -37,6 +37,22 @@ app.use(bodyParser.json());
  */
 
 
+app.post('/login', function (req, res) {
+    var info=req.query.info;
+    if(Object.prototype.toString.call(info)=='[object String]')
+        info = JSON.parse(info);
+    if((info.name=='danding'||info.name=='qingdong'||info.name=='xiaoyuding'||info.name=='zyy')&&info.pwd=='123')
+    {
+        res.send({re: 1});
+    }
+    else
+        res.send({re: -1});
+
+});
+
+
+
+
 
 app.get('/insurance/projecct_provide',function(req,res) {
 
