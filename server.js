@@ -96,6 +96,14 @@ app.post('/insurance/project_upload',function(req,res) {
     res.send({re: 1});
 });
 
+app.post('/insurance/car_info_upload',function(req,res) {
+    var info=req.query.info;
+    if(Object.prototype.toString.call(info)=='[object String]')
+        info=JSON.parse(info);
+
+    res.send({re: 1});
+});
+
 /**
  * page5
  */
