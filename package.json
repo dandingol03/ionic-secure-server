@@ -18,7 +18,13 @@
     "colors": "^1.1.2",
     "express": "^4.14.0",
     "express-static": "^1.0.3",
+    "formidable": "^1.0.17",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
     "http-proxy": "^1.14.0",
-    "url": "^0.11.0"
+    "mongoose": "^4.5.10",
+    "oauth2-server": "^2.4.1",
+    "url": "^0.11.0",
+    "ws": "^1.1.1"
   }
 }

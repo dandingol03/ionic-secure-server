@@ -3,6 +3,10 @@
  */
 var express = require('express');
 var app = require('express')();
+var server=require('http').createServer();
+var WebSocketServer=require('ws').Server;
+var wss = new WebSocketServer({server: server});
+
 var static = require("express-static");
 var bodyParser=require('body-parser');
 var httpProxy = require("http-proxy");
@@ -10,6 +14,9 @@ var proxy = httpProxy.createProxyServer({});
 var colors=require('colors');
 var ulr = require('url');
 var fs=require('fs');
+var formidable = require('formidable');
+
+
 
 app.enable('trust proxy');
 
@@ -32,6 +39,7 @@ app.use(bodyParser.json());
  * page4
  */
 
+
 app.get('/insurance/get_lifeinsurance_list', function (req, res) {
     var life_insurances=[
         {name:'新华保险',coverage:1205,fee:3000},
@@ -46,6 +54,37 @@ app.get('/insurance/get_lifeinsurance_list', function (req, res) {
 
 
 });
+
+
+
+app.get('/',function(req,res) {
+    res.sendFile(__dirname+'/views/index.html');
+});
+
+app.post('/upload',function(req,res) {
+
+    var form = new formidable.IncomingForm();
+    form.uploadDir =__dirname+'/tmp';
+    form.parse(req, function(error, fields, files) {
+        console.log(files.upload.path);
+        fs.renameSync(files.upload.path, __dirname+'/upload/'+files.upload.name);
+        res.setHeader("Content-Type","text/html");
+        res.write("i got it ");
+        res.end();
+    });
+});
+
+
+app.post('/login', function (req, res) {
+    res.send({re: 1});
+});
+
+
+/**
+ *
+ * 车险 coverages
+ */
+
 
 app.get('/insurance/project_provide',function(req,res) {
 
@@ -64,6 +103,66 @@ app.get('/insurance/project_provide',function(req,res) {
         {name:'交强险',fee:400}
     ];
     res.send({projects:projects});
+});
+
+
+//图片下放
+app.get('/get/photo/:path',function(req,res) {
+    var path=__dirname+'/public/photo/'+req.params.path;
+    fs.readFile(path,"binary",function(err,file) {
+        if(err)
+        {
+            res.setHeader("Content-Type","text/plain");
+            res.write(error+"\n");
+            res.end();
+        }
+        var imgPath=req.params.path;
+        var img_reg=/\.(.*)$/;
+        var type=img_reg.exec(imgPath)[1];
+        switch(type)
+        {
+            case 'png':
+                res.setHeader("Content-Type","image/png");
+                break;
+            case 'jpg':
+                res.setHeader("Content-Type","image/jpeg");
+                break;
+            default:
+                break;
+        }
+        res.write(file,"binary");
+        res.end();
+
+    });
+});
+
+app.post('/post/photo/:path',function(req,res) {
+    var path=__dirname+'/public/photo/'+req.params.path;
+    fs.readFile(path,"binary",function(err,file) {
+        if(err)
+        {
+            res.setHeader("Content-Type","text/plain");
+            res.write(error+"\n");
+            res.end();
+        }
+        var imgPath=req.params.path;
+        var img_reg=/\.(.*)$/;
+        var type=img_reg.exec(imgPath)[1];
+        switch(type)
+        {
+            case 'png':
+                res.setHeader("Content-Type","image/png");
+                break;
+            case 'jpg':
+                res.setHeader("Content-Type","image/jpeg");
+                break;
+            default:
+                break;
+        }
+        res.write(file,"binary");
+        res.end();
+
+    });
 });
 
 
@@ -92,13 +191,20 @@ app.post('/insurance/project_upload',function(req,res) {
     res.send({re: 1});
 });
 
+app.post('/insurance/car_info_upload',function(req,res) {
+    var info=req.query.info;
+    if(Object.prototype.toString.call(info)=='[object String]')
+        info=JSON.parse(info);
+
+    res.send({re: 1});
+});
+
 /**
  * page5
  */
 app.get('/insurance/project_select', function (req, res) {
 
         //TODO:store the list and push it when stuff compulate the result
-
         res.send({prices:
             [
                 {name:'compnay a',fee:1205,detail:{projects:['车辆损失险','乘客每人']}},
@@ -116,6 +222,13 @@ app.post('/insurance/project_apply',function(req,res) {
     res.send({re:1});
 });
 
+wss.on('connection',function connection(ws) {
+    ws.on('message', function incoming(message) {
+        console.log('received: %s', message);
+    });
+    ws.send('something');
+});
 
-app.listen(9030);
+server.on('request', app);
+server.listen(9030);
 
