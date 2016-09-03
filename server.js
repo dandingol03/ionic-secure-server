@@ -40,6 +40,23 @@ app.use(bodyParser.json());
  */
 
 
+app.get('/insurance/get_lifeinsurance_list', function (req, res) {
+    var life_insurances=[
+        {name:'新华保险',coverage:1205,fee:3000},
+        {name:'太平洋保险',coverage:1205,fee:3000},
+        {name:'平安保险',coverage:1205,fee:3000},
+        {name:'新华保险',coverage:1205,fee:3000},
+        {name:'新华保险',coverage:1205,fee:3000},
+        {name:'新华保险',coverage:1205,fee:3000},
+    ]
+
+    res.send({life_insurances:life_insurances});
+
+
+});
+
+
+
 app.get('/',function(req,res) {
     res.sendFile(__dirname+'/views/index.html');
 });
@@ -79,13 +96,14 @@ app.post('/login', function (req, res) {
  * 车险 coverages
  */
 
+
 app.get('/insurance/project_provide',function(req,res) {
 
     var projects=[
         {name:'车辆损失险',fee:1205},
-        {name:'第三者责任险',fee:[1104,870,999],selectable:true},
+        {name:'第三者责任险',fees:[1104,870,999],selectable:true},
         {name:'全车盗抢险',fee:1102},
-        {name:'车上人员责任险',fee:[700,600,1000],selectable:true},
+        {name:'车上人员责任险',fees:[700,600,1000],selectable:true},
         {name:'驾驶员',fee:200},
         {name:'乘客每人',fee:800},
         {name:'玻璃单独破碎险',fee:300},
@@ -131,9 +149,12 @@ app.get('/get/photo/:path',function(req,res) {
 
 
 /**
+<<<<<<< HEAD
  * photo download
  */
 app.post('/get/photo/:path',function(req,res) {
+
+
     var path=__dirname+'/public/photo/'+req.params.path;
     fs.readFile(path,"binary",function(err,file) {
         if(err)
@@ -170,12 +191,15 @@ app.get('/insurance/my_pageinfo',function(req,res) {
         {title:"个人信息",href:'/#/personInformation'},
         {title:"实名认证",href:''},
         {title:"我的订单",href:''},
+        {title:"我的车辆",href:'/#/car_info'},
         {title:"推荐二维码",href:''},
         {title:"我的股权",href:''},
         {title:"积分提现",href:''}
     ];
     res.send({infos:infos});
 });
+
+
 
 
 app.post('/insurance/project_upload',function(req,res) {
