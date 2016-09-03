@@ -136,7 +136,11 @@ app.get('/get/photo/:path',function(req,res) {
     });
 });
 
-app.post('/post/photo/:path',function(req,res) {
+
+/**
+ * 图片下载
+ */
+app.get('/post/photo/:path',function(req,res) {
     var path=__dirname+'/public/photo/'+req.params.path;
     fs.readFile(path,"binary",function(err,file) {
         if(err)
