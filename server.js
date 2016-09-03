@@ -44,17 +44,28 @@ app.get('/',function(req,res) {
     res.sendFile(__dirname+'/views/index.html');
 });
 
-app.post('/upload',function(req,res) {
 
-    var form = new formidable.IncomingForm();
-    form.uploadDir =__dirname+'/tmp';
-    form.parse(req, function(error, fields, files) {
-        console.log(files.upload.path);
-        fs.renameSync(files.upload.path, __dirname+'/upload/'+files.upload.name);
-        res.setHeader("Content-Type","text/html");
-        res.write("i got it ");
-        res.end();
-    });
+/**
+ * photo upload
+ */
+
+app.post('/upload/photo/:imageName',function(req,res) {
+
+
+    try{
+        var imageName=req.params.imageName;
+        var form = new formidable.IncomingForm();
+        form.uploadDir =__dirname+'/tmp';
+        form.parse(req, function(error, fields, files) {
+            //sourcePath,destPath
+            fs.renameSync(files.file.path, __dirname+'/upload/'+imageName);
+            res.send({re: 1});
+        });
+
+    }catch(e)
+    {
+        res.send ({re: -1});
+    }
 });
 
 
@@ -118,7 +129,11 @@ app.get('/get/photo/:path',function(req,res) {
     });
 });
 
-app.post('/post/photo/:path',function(req,res) {
+
+/**
+ * photo download
+ */
+app.post('/get/photo/:path',function(req,res) {
     var path=__dirname+'/public/photo/'+req.params.path;
     fs.readFile(path,"binary",function(err,file) {
         if(err)
@@ -146,6 +161,7 @@ app.post('/post/photo/:path',function(req,res) {
 
     });
 });
+
 
 
 app.get('/insurance/my_pageinfo',function(req,res) {
