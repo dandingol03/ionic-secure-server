@@ -42,12 +42,12 @@ app.use(bodyParser.json());
 
 app.get('/insurance/get_lifeinsurance_list', function (req, res) {
     var life_insurances=[
-        {name:'新华保险',coverage:1205,fee:3000},
-        {name:'太平洋保险',coverage:1205,fee:3000},
-        {name:'平安保险',coverage:1205,fee:3000},
-        {name:'新华保险',coverage:1205,fee:3000},
-        {name:'新华保险',coverage:1205,fee:3000},
-        {name:'新华保险',coverage:1205,fee:3000},
+        {name:'新华保险',coverage:1205,fee:3000,img:'新华保险.jpg'},
+        {name:'太平洋保险',coverage:1205,fee:3000,img:'太平洋保险.jpg'},
+        {name:'中国人保健康',coverage:1205,fee:3000,img:'中国人保.jpg'},
+        {name:'民生人寿',coverage:1205,fee:3000,img:'民生人寿.jpg'},
+        {name:'泰康人寿',coverage:1205,fee:3000,img:'泰康人寿.jpg'},
+        {name:'安邦保险',coverage:1205,fee:3000,img:'安邦保险.png'},
     ]
 
     res.send({life_insurances:life_insurances});
