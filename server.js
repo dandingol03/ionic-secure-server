@@ -43,6 +43,7 @@ app.use(bodyParser.json());
 app.get('/insurance/get_lifeinsurance_list', function (req, res) {
     var life_insurances=[
 
+
         { type:'寿险',main:{name:'新华保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:
             [
                 {name:'addition1',gurantee_limit:2000,gurantee_fee:3000,count:1},
@@ -65,6 +66,13 @@ app.get('/insurance/get_lifeinsurance_list', function (req, res) {
        // {name:'新华保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},
        // {name:'新华保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},
        // {name:'新华保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000}
+
+        {name:'新华保险',coverage:1205,fee:3000,img:'新华保险.jpg'},
+        {name:'太平洋保险',coverage:1205,fee:3000,img:'太平洋保险.jpg'},
+        {name:'中国人保健康',coverage:1205,fee:3000,img:'中国人保.jpg'},
+        {name:'民生人寿',coverage:1205,fee:3000,img:'民生人寿.jpg'},
+        {name:'泰康人寿',coverage:1205,fee:3000,img:'泰康人寿.jpg'},
+        {name:'安邦保险',coverage:1205,fee:3000,img:'安邦保险.png'},
     ]
 
     res.send({life_insurances:life_insurances});
@@ -84,17 +92,28 @@ app.get('/',function(req,res) {
     res.sendFile(__dirname+'/views/index.html');
 });
 
-app.post('/upload',function(req,res) {
 
-    var form = new formidable.IncomingForm();
-    form.uploadDir =__dirname+'/tmp';
-    form.parse(req, function(error, fields, files) {
-        console.log(files.upload.path);
-        fs.renameSync(files.upload.path, __dirname+'/upload/'+files.upload.name);
-        res.setHeader("Content-Type","text/html");
-        res.write("i got it ");
-        res.end();
-    });
+/**
+ * photo upload
+ */
+
+app.post('/upload/photo/:imageName',function(req,res) {
+
+
+    try{
+        var imageName=req.params.imageName;
+        var form = new formidable.IncomingForm();
+        form.uploadDir =__dirname+'/tmp';
+        form.parse(req, function(error, fields, files) {
+            //sourcePath,destPath
+            fs.renameSync(files.file.path, __dirname+'/upload/'+imageName);
+            res.send({re: 1});
+        });
+
+    }catch(e)
+    {
+        res.send ({re: -1});
+    }
 });
 
 
@@ -161,9 +180,12 @@ app.get('/get/photo/:path',function(req,res) {
 
 
 /**
- * 图片下载
+<<<<<<< HEAD
+ * photo download
  */
-app.get('/post/photo/:path',function(req,res) {
+app.post('/get/photo/:path',function(req,res) {
+
+
     var path=__dirname+'/public/photo/'+req.params.path;
     fs.readFile(path,"binary",function(err,file) {
         if(err)
@@ -191,6 +213,7 @@ app.get('/post/photo/:path',function(req,res) {
 
     });
 });
+
 
 
 app.get('/insurance/my_pageinfo',function(req,res) {
