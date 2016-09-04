@@ -42,18 +42,41 @@ app.use(bodyParser.json());
 
 app.get('/insurance/get_lifeinsurance_list', function (req, res) {
     var life_insurances=[
-        {name:'新华保险',coverage:1205,fee:3000},
-        {name:'太平洋保险',coverage:1205,fee:3000},
-        {name:'平安保险',coverage:1205,fee:3000},
-        {name:'新华保险',coverage:1205,fee:3000},
-        {name:'新华保险',coverage:1205,fee:3000},
-        {name:'新华保险',coverage:1205,fee:3000},
+
+        { type:'寿险',main:{name:'新华保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:
+            [
+                {name:'addition1',gurantee_limit:2000,gurantee_fee:3000,count:1},
+                {name:'addition2',gurantee_limit:1000,gurantee_fee:4000,count:1}
+            ]
+        },
+
+        { type:'寿险',main:{name:'新华保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
+            {name:'addition1',fee:300,count:1},
+            {name:'addition2',fee:800,count:1}]
+        },
+        { type:'寿险',main:{name:'新华保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
+            {name:'addition1',fee:300,count:1},
+            {name:'addition2',fee:800,count:1}]
+        }
+
+       //{name:'新华保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},
+       // {name:'太平洋保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},
+        // {name:'平安保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},
+       // {name:'新华保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},
+       // {name:'新华保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},
+       // {name:'新华保险',coverage:1205,fee:3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000}
     ]
 
     res.send({life_insurances:life_insurances});
 
 
 });
+
+
+
+
+
+
 
 
 
@@ -204,14 +227,22 @@ app.post('/insurance/car_info_upload',function(req,res) {
 });
 
 /**
- * page5
+ * page5,车险方案
  */
 app.get('/insurance/project_select', function (req, res) {
 
         //TODO:store the list and push it when stuff compulate the result
+
         res.send({prices:
             [
-                {name:'compnay a',fee:1205,detail:{projects:['车辆损失险','乘客每人']}},
+                {name:'compnay a',fee:1205,
+                    projects:[{name:'第三者责任险',price:50000,fee:2000},
+                              {name:'自然损失险',price:50000,fee:2000},
+                              {name:'车辆损失险',price:50000,fee:2000}
+                    ]},
+
+
+
                 {name:'compnay b',fee:801,detail:{projects:['第三者责任险','驾驶员','自燃损失险','交强险']}},
                 {name:'compnay c',fee:999,detail:{projects:['玻璃单独破碎险','乘客每人']}},
                 {name:'compnay d',fee:1405,detail:{projects:['无法找到第三方','车辆损失险','自燃损失险','全车盗抢险']}}
