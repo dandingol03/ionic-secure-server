@@ -115,18 +115,18 @@ app.post('/login', function (req, res) {
 app.get('/insurance/project_provide',function(req,res) {
 
     var projects=[
-        {name:'车辆损失险',fee:1205},
-        {name:'第三者责任险',fees:[1104,870,999],selectable:true},
-        {name:'全车盗抢险',fee:1102},
-        {name:'车上人员责任险',fees:[700,600,1000],selectable:true},
-        {name:'驾驶员',fee:200},
-        {name:'乘客每人',fee:800},
-        {name:'玻璃单独破碎险',fee:300},
-        {name:'自燃损失险',fee:800},
-        {name:'无法找到第三方',fee:100},
-        {name:'新增设备险',fee:350},
-        {name:'不计免赔险',fee:360},
-        {name:'交强险',fee:400}
+        {name:'车辆损失险',price:1205},
+        {name:'第三者责任险',prices:[1104,870,999]},
+        {name:'全车盗抢险',price:1102},
+        {name:'车上人员责任险',prices:[700,600,1000]},
+        {name:'驾驶员',price:200},
+        {name:'乘客每人',price:800},
+        {name:'玻璃单独破碎险',price:300},
+        {name:'自燃损失险',price:800},
+        {name:'无法找到第三方',price:100},
+        {name:'新增设备险',price:350},
+        {name:'不计免赔险',price:360},
+        {name:'交强险',price:400}
     ];
     res.send({projects:projects});
 });
