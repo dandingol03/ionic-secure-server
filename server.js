@@ -14,24 +14,33 @@ var proxy = httpProxy.createProxyServer({});
 var colors=require('colors');
 var ulr = require('url');
 var fs=require('fs');
-var formidable = require('formidable');
+//var formidable = require('formidable');
 
 app.enable('trust proxy');
 
-app.post('*',function(req,res,next) {
+
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+//
+//app.all('*', function(req, res, next) {
+//    res.header("Access-Control-Allow-Origin", "*");
+//    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+//    res.header("X-Powered-By",' 3.2.1')
+//    res.header("Content-Type", "application/json;charset=utf-8");
+//    console.log(req);
+//    next();
+//});
+
+app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    res.header("X-Powered-By",' 3.2.1')
-    res.header("Content-Type", "application/json;charset=utf-8");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
 app.use(static(__dirname + '/public'));
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json());
+
 
 /**
  * page4
@@ -67,11 +76,10 @@ app.get('/insurance/get_lifeinsurance_list', function (req, res) {
             {name:'附加险1',singleton:300,gurantee_fee:300,count:1},
             {name:'附加险2',singleton:800,gurantee_fee:800,count:1}]
         }
-    ]
+    ];
 
     res.send({life_insurances:life_insurances});
 });
-
 
 
 app.get('/',function(req,res) {
