@@ -40,30 +40,30 @@ app.use(bodyParser.json());
 
 app.get('/insurance/get_lifeinsurance_list', function (req, res) {
     var life_insurances=[
-        { type:'寿险',price:10000,main:{name:'新华保险',img:'新华保险.jpg',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:
+        { type:'寿险',price:10000,main:{name:'新华保险',img:'xh_insurance.jpg',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:
             [
                 {name:'附加险1',singleton:3000,gurantee_fee:3000,count:1},
                 {name:'附加险2',singleton:4000,gurantee_fee:4000,count:1}
             ]
         },
 
-        { type:'寿险',price:20000,main:{name:'太平洋保险',img:'太平洋保险.jpg',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
+        { type:'寿险',price:20000,main:{name:'太平洋保险',img:'tpy_insurance.jpg',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
             {name:'附加险1',singleton:300,gurantee_fee:300,count:1},
             {name:'附加险2',singleton:800,gurantee_fee:800,count:1}]
         },
-        { type:'寿险',price:12000,main:{name:'中国人保健康',img:'中国人保.jpg',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
+        { type:'寿险',price:12000,main:{name:'中国人保健康',img:'china_insurance.jpg',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
             {name:'附加险1',singleton:300,gurantee_fee:300,count:1},
             {name:'附加险2',singleton:800,gurantee_fee:800,count:1}]
         },
-        { type:'寿险',price:14082,main:{name:'民生人寿',img:'民生人寿.jpg',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
+        { type:'寿险',price:14082,main:{name:'民生人寿',img:'minsheng_insurance.jpg',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
             {name:'附加险1',singleton:300,gurantee_fee:300,count:1},
             {name:'附加险2',singleton:800,gurantee_fee:800,count:1}]
         },
-        { type:'寿险',price:15000,main:{name:'泰康人寿',img:'泰康人寿.jpg',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
+        { type:'寿险',price:15000,main:{name:'泰康人寿',img:'tk_life_insurance.jpg',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
             {name:'附加险1',singleton:300,gurantee_fee:300,count:1},
             {name:'附加险2',singleton:800,gurantee_fee:800,count:1}]
         },
-        { type:'寿险',price:16000,main:{name:'安邦保险',img:'安邦保险.png',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
+        { type:'寿险',price:16000,main:{name:'安邦保险',img:'anbang_insurance.png',description:'best insurance in china','保额':1205,'保费':3000,'缴费期间':'3年','保额期间':'3年','首年保费':400000},additions:[
             {name:'附加险1',singleton:300,gurantee_fee:300,count:1},
             {name:'附加险2',singleton:800,gurantee_fee:800,count:1}]
         }
